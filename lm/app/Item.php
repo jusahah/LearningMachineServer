@@ -9,6 +9,10 @@ use App\LatestAddition;
 class Item extends Model
 {
     //
+    public function category() {
+    	return $this->belongsTo('App\Category');
+    }
+
 	public function sequenceable() {
     	return $this->morphMany('App\Sequenceable', 'sequenceable');
     }
@@ -34,6 +38,12 @@ class Item extends Model
     	$this->itenable()->delete();
     	// Route to parent default destructor that delete this guy
     	parent::delete();
+    }
+
+    // Instance methods
+
+    public function returnYourPortionOfSequence() {
+    	return $this->itenable;
     }
 
 }

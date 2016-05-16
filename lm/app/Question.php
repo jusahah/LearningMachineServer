@@ -18,4 +18,10 @@ class Question extends Model
     public function answers() {
     	return $this->hasMany('App\Answer');
     }
+
+    // Instance methods
+
+    public function returnYourPortionOfSequence() {
+    	return $this;
+    }
 }

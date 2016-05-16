@@ -7,6 +7,7 @@ use App\Item;
 use App\LatestAddition;
 use App\Sequenceable;
 use App\Question;
+use App\Sequence;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -33,11 +34,49 @@ class AppServiceProvider extends ServiceProvider
             }
         });
         // Create sequenceable model for this item
+        Sequence::created(function($sequence) {
+            Sequenceable::create([
+                'sequenceable_id' => $sequence->id,
+                'sequenceable_type' => Sequence::class
+            ]);
+        });
+
+        Sequence::deleted(function($sequence) {
+            // Delete sequenceables when its item type
+            echo "Deleting sequence";
+            try {
+                $sequenceable = Sequenceable::where('sequenceable_id', $sequence->id)
+                    ->where('sequenceable_type', 'App\Sequence')->firstOrFail(); 
+                $sequenceable->delete();  
+
+            } catch (ModelNotFoundException $e) {
+
+
+            }
+
+        });
+
+        // Create sequenceable model for this item
         Item::created(function($item) {
             Sequenceable::create([
                 'sequenceable_id' => $item->id,
                 'sequenceable_type' => Item::class
             ]);
+        });
+
+        Item::deleted(function($item) {
+            // Delete sequenceables when its item type
+            echo "Deleting item";
+            try {
+                $sequenceable = Sequenceable::where('sequenceable_id', $item->id)
+                    ->where('sequenceable_type', 'App\Item')->firstOrFail(); 
+                $sequenceable->delete();  
+
+            } catch (ModelNotFoundException $e) {
+
+
+            }
+
         });
 
         // Create sequenceable model for this question
@@ -46,7 +85,23 @@ class AppServiceProvider extends ServiceProvider
                 'sequenceable_id' => $question->id,
                 'sequenceable_type' => Question::class
             ]);
-        });                  
+        });
+
+        Question::deleted(function($question) {
+            // Delete sequenceables when its question type
+            echo "Deleting question";
+            try {
+                $sequenceable = Sequenceable::where('sequenceable_id', $question->id)
+                    ->where('sequenceable_type', 'App\Question')->firstOrFail(); 
+                $sequenceable->delete();  
+                                 
+            } catch (ModelNotFoundException $e) {
+                
+
+            }
+
+        });
+
     }
 
     /**
