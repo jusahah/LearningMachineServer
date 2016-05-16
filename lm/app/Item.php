@@ -9,6 +9,9 @@ use App\LatestAddition;
 class Item extends Model
 {
     //
+	public function sequenceable() {
+    	return $this->morphMany('App\Sequenceable', 'sequenceable');
+    }
 
     public function itenable() {
     	return $this->morphTo();

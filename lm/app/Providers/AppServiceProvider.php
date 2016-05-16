@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Item;
 use App\LatestAddition;
+use App\Sequenceable;
+use App\Question;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -17,8 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Create or update latestAddition model
         Item::created(function($item) {
-            echo "Item created: " . $item->id . " with type " . $item->itenable_type;
             try {
                 $la = LatestAddition::where('user_id', $item->user_id)->firstOrFail();
                 $la->item_id = $item->id;
@@ -30,6 +32,21 @@ class AppServiceProvider extends ServiceProvider
                 ]);             
             }
         });
+        // Create sequenceable model for this item
+        Item::created(function($item) {
+            Sequenceable::create([
+                'sequenceable_id' => $item->id,
+                'sequenceable_type' => Item::class
+            ]);
+        });
+
+        // Create sequenceable model for this question
+        Question::created(function($question) {
+            Sequenceable::create([
+                'sequenceable_id' => $question->id,
+                'sequenceable_type' => Question::class
+            ]);
+        });                  
     }
 
     /**
