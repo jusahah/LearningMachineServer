@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateImageItemsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,15 @@ class CreateImageItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_items', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->string('imagepath', 512);
-            $table->text('thumbnail');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->string('name', 128);
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateImageItemsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('image_items');
+        Schema::drop('categories');
     }
 }

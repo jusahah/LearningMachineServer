@@ -31,6 +31,13 @@ class CategorySeeder extends Seeder
     		'name' => 'sub_cat_for_3',
     		'user_id' => 1,
     		'parent_id' => 3
-    	]);    
+    	]);   
+
+    	$user2category = App\Category::create([
+    		'name' => 'kakkos_userin kateogria',
+    		'user_id' => 2,
+    		'parent_id' => null
+    	]);   
+
     }
 }

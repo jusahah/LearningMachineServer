@@ -14,7 +14,12 @@ class CreateLatestAdditionsTable extends Migration
     {
         Schema::create('latest_additions', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->integer('item_id')->unsigned()->unique();
+            $table->integer('user_id')->unsigned()->unique();
+
+            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

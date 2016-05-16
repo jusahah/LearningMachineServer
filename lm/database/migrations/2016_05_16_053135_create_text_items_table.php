@@ -14,8 +14,11 @@ class CreateTextItemsTable extends Migration
     {
         Schema::create('text_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
             // Superclass 'Item' has timestamps, name, summary
             $table->text('note');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
