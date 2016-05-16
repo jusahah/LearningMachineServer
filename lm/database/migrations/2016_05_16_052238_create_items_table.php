@@ -23,6 +23,8 @@ class CreateItemsTable extends Migration
             $table->string('name', 128);
             $table->text('summary');
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->index('user_id');
             $table->index('category_id');

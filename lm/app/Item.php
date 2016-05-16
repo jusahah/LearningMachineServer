@@ -14,6 +14,15 @@ class Item extends Model
 
     public function tags() {
     	// Using Tagged model as pivot table
-    	return $this->belongsToMany('app\Tag');
+    	return $this->belongsToMany('App\Tag');
+    }
+
+
+    // Override Laravel implementation!
+    public function delete() {
+
+    	// We make sure we delete also the real model (textItem, imageItem, etc.)
+    	$this->itenable->delete();
+    	$this->delete();
     }
 }
