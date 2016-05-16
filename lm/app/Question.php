@@ -8,7 +8,7 @@ class Question extends Model
 {
     //
 	public function sequenceable() {
-    	return $this->morphMany('App\Sequenceable', 'sequenceable');
+    	return $this->morphOne('App\Sequenceable', 'sequenceable');
     }
 
     public function item() {

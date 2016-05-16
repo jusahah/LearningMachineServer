@@ -14,7 +14,7 @@ class Item extends Model
     }
 
 	public function sequenceable() {
-    	return $this->morphMany('App\Sequenceable', 'sequenceable');
+    	return $this->morphOne('App\Sequenceable', 'sequenceable');
     }
 
     public function itenable() {

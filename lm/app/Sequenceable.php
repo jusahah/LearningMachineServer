@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Sequence;
+
 // Interface for all models that can be put inside Sequence!
 class Sequenceable extends Model
 {
@@ -23,6 +25,9 @@ class Sequenceable extends Model
     public function returnYourPortionOfSequence() {
 
     	return $this->sequenceable->returnYourPortionOfSequence();
+    }
 
+    public function isSequence() {
+    	return $this->sequenceable_type == 'App\Sequence';
     }
 }

@@ -16,10 +16,11 @@ class SequenceSeeder extends Seeder
     		'user_id' => 1
     	]);
 
-    	$sequenceable = App\Sequenceable::find(2);
-    	$sequenceable2 = App\Sequenceable::find(6);
-    	$sequenceable3 = App\Sequenceable::find(8);
-    	$sequenceable4 = App\Sequenceable::find(1);
+    	/*
+    	$sequenceable = App\Sequenceable::find(1);
+    	$sequenceable2 = App\Sequenceable::find(2);
+    	$sequenceable3 = App\Sequenceable::find(1);
+    	$sequenceable4 = App\Sequenceable::find(2);
 
     	$seq->replaceOrderedSequenceables(collect([
     		$sequenceable, 
@@ -28,20 +29,63 @@ class SequenceSeeder extends Seeder
     		$sequenceable4
     	]));
 
+    	echo "First run done";
+		*/
+
     	$seq2 = App\Sequence::create([
     		'name' => 'sequence2',
     		'user_id' => 1
     	]);
+    	$seq3 = App\Sequence::create([
+    		'name' => 'sequence3',
+    		'user_id' => 1
+    	]);
+    	$seq4 = App\Sequence::create([
+    		'name' => 'sequence4',
+    		'user_id' => 1
+    	]);
+    	$sequenceable21 = App\Sequenceable::find(1);
+    	$sequenceable22 = App\Sequenceable::find(2);
 
-    	$sequenceable21 = App\Sequenceable::find(5);
-    	$sequenceable22 = App\Sequenceable::find(3);
+
+    	
+    	/*
+    	echo "\n-------\n-------\n-------\n-------\n-------\n-------\n";
+    	$sequenceable4 = App\Sequenceable::find(2);
+    	$seq->replaceOrderedSequenceables(collect([
+    		$sequenceable4,
+    		$sequenceable22,
+    		$sequenceable21    		
+    	]));
+    	echo "\n-------\n-------\n-------\n-------\nNESTED\n-------\n";
+    	$seq2->replaceOrderedSequenceables(collect([
+    		$sequenceable4,
+    		$seq->sequenceable,
+    		$sequenceable4,
+    		$seq2->sequenceable
+    	]));  
+    	*/
+
+    	$seq->replaceOrderedSequenceables(collect([
+    		$sequenceable21,
+    		$sequenceable22
+    	]));	
 
     	$seq2->replaceOrderedSequenceables(collect([
-    		$sequenceable22,
     		$seq->sequenceable,
-    		$sequenceable21
+    		$seq->sequenceable
+    	]));
+    
+    	$seq3->replaceOrderedSequenceables(collect([
+    		$seq2->sequenceable,
+    		$seq2->sequenceable
     	]));
 
+    	$seq4->replaceOrderedSequenceables(collect([
+    		$seq3->sequenceable,
+    		$seq2->sequenceable,
+    		$seq3->sequenceable
+    	]));
 
 
 
