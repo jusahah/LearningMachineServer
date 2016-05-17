@@ -33,6 +33,18 @@ class ImageItemSeeder extends Seeder
     		'tags' => 'PHP,Javascript,Clojure',
     		'imagepath' => 'aws.amazon.com/8u4j54i3koira',
     		'thumbnail' => $base64
-    	]);    	
+    	]);  
+
+		App\ImageItem::createItem([
+    		'name' => 'Päivänkakkara',
+    		'summary' => 'Although implode() can, for historical reasons, accept its parameters in either order, explode() cannot. You must ensure that the delimiter argument comes before the string argument.',
+    		'category_id' => 4,
+    		'user_id' => 1,
+    		'tags' => 'PHP,Javascript',
+    		'imagepath' => 'aws.amazon.com/8u4j54i3koira',
+    		'thumbnail' => $base64
+    	]);  
+
     }
+
 }

@@ -33,4 +33,9 @@ class TextItem extends Model
     public function item() {
     	return $this->morphOne('App\Item', 'itenable');
     }
+    
+    // Display methods
+    public function singleTemplateName() {
+    	return 'text';
+    }    
 }

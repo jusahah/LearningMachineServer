@@ -93,6 +93,10 @@ class Item extends Model
 
     // Display methods
 
+    public function actualType() {
+    	return strtolower($this->printType());
+    }
+
     public function printType() {
     	$className = $this->itenable_type;
     	return trans("classnames.$className");
@@ -106,7 +110,10 @@ class Item extends Model
     	// Max 32 chars...
     	return $this->summary;
     }
-
+    public function printMediumSummary() {
+    	// Max 32 chars...
+    	return str_limit($this->summary, 256);
+    }
     public function printSummary() {
     	// Max 32 chars...
     	return str_limit($this->summary, 32);
