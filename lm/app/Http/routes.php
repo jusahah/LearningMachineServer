@@ -26,7 +26,23 @@ Route::group(['middleware' => 'auth'], function() {
 	});
 
 	Route::resource('item', 'ItemController');
-	Route::resource('category', 'CategoryController');
+	// This route is called from javascript
+	Route::get('item/{item}/delete', ['as' => 'item.customdelete', 'uses' => 'ItemController@destroy']);
 
+	// Item owned resources
+	Route::resource('item.questions', 'ItemQuestionController');
+
+	Route::resource('category', 'CategoryController');
+	Route::resource('tag', 'TagController');
+
+
+
+});
+
+Route::group(['prefix' => 'opendata'], function() {
+
+	Route::group(['middleware' => 'checkUserIdForOpenDataRequest', 'prefix' => 'user/{user}'], function() {
+		Route::get('timeline', 'OpenDataController@userTimeline');
+	});
 });
 

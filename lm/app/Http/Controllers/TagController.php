@@ -5,26 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Item;
 
-class ItemController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-
-        $items = Item::where('user_id', \Auth::id())->get();
-
-        if ($items->count() === 0) {
-            $request->session()->flash('warning', trans('messagestouser.noItemsYet'));
-        }
-        
-        return view('items/list', compact('items'));
-
+        //
     }
 
     /**
@@ -54,15 +45,9 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show($id)
     {
-        // View's job to decide what actual template to use
-        // based on item's actual itenable_type
-        $concreteItem = $item->itenable;
-
-        return view('items/'. $concreteItem->singleTemplateName() . '/show', 
-            compact('item', 'concreteItem'));
-        
+        //
     }
 
     /**
@@ -94,10 +79,8 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Item $item)
+    public function destroy($id)
     {
-        $item->delete();
-        \Session::flash('success', 'Study item was deleted');
-        return redirect()->back();
+        //
     }
 }

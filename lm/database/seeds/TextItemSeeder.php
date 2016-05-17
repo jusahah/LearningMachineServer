@@ -10,6 +10,8 @@ class TextItemSeeder extends Seeder
     		'summary' => 'Note about cash',
     		'category_id' => 5,
     		'user_id' => 1,
+    		'tags' => 'koira,hauva',
+
     		'note' => 'All the best things in life are not free. They are fucking expensive'
     	]);
     }

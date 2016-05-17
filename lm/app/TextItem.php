@@ -23,14 +23,10 @@ class TextItem extends Model
     		'user_id' => $attributes['user_id']
     	]);
     	// We then create superclass item that works as an interface
-    	$item = new Item();
-    	$item->name = $attributes['name'];
-    	$item->summary = $attributes['summary'];
-    	$item->category_id = $attributes['category_id'];
-    	$item->user_id = $attributes['user_id'];
-    	$item->itenable_type = self::$itenable_typename;
-    	$item->itenable_id   = $concreteItem->id;
-    	$item->save();
+    	$attributes['itenable_typename'] = self::$itenable_typename;
+    	$attributes['itenable_id'] = $concreteItem->id;
+
+    	Item::createItem($attributes); // Create super class item
 
     }
 

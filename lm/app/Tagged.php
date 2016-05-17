@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tagged extends Model
 {
     // This model is pivot model!
-
-    public $table = 'items_tags';
+	public $timestamps = false;
+    public $table = 'item_tag';
 
     public function tag() {
     	return $this->belongsTo('App\Tag');

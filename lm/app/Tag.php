@@ -13,4 +13,15 @@ class Tag extends Model
     	// Using Tagged model as pivot table
     	return $this->belongsToMany('App\Item');
     }
+
+    public static function createOrGet($tag, $userID) {
+    	$tag = trim($tag);
+
+    	echo "Create or get: " . $tag;
+
+    	return Tag::firstOrCreate([
+    		'user_id' => $userID,
+    		'name' => $tag
+    	]);
+    }
 }

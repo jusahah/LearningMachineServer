@@ -148,11 +148,11 @@
 					</li>
 					<li class="top-menu-invisible">
 						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Categories</span></a>
-						<ul style="display: block;">
-							<li class="active">
+						<ul>
+							<li>
 								<a href="{{ route('category.index') }}">List All</a>
 							</li>
-							<li class="active">
+							<li>
 								<a href="{{ route('category.create') }}">Create New</a>
 							</li>
 						</ul>
@@ -270,12 +270,14 @@
 				</li>
 			</ul>
 		</div>
+
+		
 		<!-- END SHORTCUT AREA -->
 
 		<!--================================================== -->
 
 		<!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-		<script data-pace-options='{ "restartOnRequestAfter": true }' src="{{asset('js/plugin/pace/pace.min.js')}}"></script>
+		<script data-pace-options='{ "restartOnRequestAfter": false }' src="{{asset('js/plugin/pace/pace.min.js')}}"></script>
 
 		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -366,7 +368,7 @@
 		<script src="{{asset('js/plugin/moment/moment.min.js')}}"></script>
 		<script src="{{asset('js/plugin/fullcalendar/jquery.fullcalendar.min.js')}}"></script>
 
-
+		@yield('js')
 
 	</body>
 

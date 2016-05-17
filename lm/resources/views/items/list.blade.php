@@ -46,6 +46,7 @@
 														<th>Summary</th>
 														<th>Created At</th>
 														<th>Open</th>
+														<th>Delete</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -57,7 +58,9 @@
 														<td>{{$item->printSummary()}}</td>
 														<td>{{$item->printCreatedAt()}}</td>
 														<td><a class="btn btn-xs btn-primary" href="{{route('item.show', ['item' => $item->id])}}">Open</a></td>
-
+														<td><a class="btn btn-danger btn-xs deleteitem" href="{{route('item.customdelete', ['item' => $item->id])}}" data-deletepath="{{route('item.customdelete', ['item' => $item->id])}}">Poista</a></td>
+											Launch demo modal
+										</button></td>
 													</tr>
 													@endforeach
 
@@ -72,5 +75,42 @@
 								<!-- end widget div -->
 
 							</div>
-@endsection							
+
+@endsection	
+
+
+@section('js')
+
+<script>
+
+console.log("Js injected");
+$(function() {
+
+	$(".deleteitem").click(function(e) {
+		var deletepath = $(e.target).attr('data-deletepath');
+		console.log("Clicked that!: " + deletepath);
+		
+				$.SmartMessageBox({
+					title : "Confirm Delete",
+					content : "Deletion of study item can not be reversed",
+					buttons : '[Cancel][Delete]'
+				}, function(ButtonPressed) {
+					if (ButtonPressed === "Delete") {
+						window.location = deletepath;
+					}
+					if (ButtonPressed === "Cancel") {
+						
+					}
+		
+				});
+				// Progressive enchancement
+				e.preventDefault();
+			})
+
+});
+
+</script>
+
+
+@endsection						
 

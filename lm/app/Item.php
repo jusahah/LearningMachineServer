@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use App\LatestAddition;
+use App\Tag;
+use App\Tagged;
 use Carbon\Carbon;
 
 class Item extends Model
@@ -30,6 +32,32 @@ class Item extends Model
 
     public function questions() {
     	return $this->hasMany('App\Question');
+    }
+
+    public static function createItem($attributes) {
+
+    	$tags = collect(explode(',', $attributes['tags']));
+
+    	$tagModels = $tags->map(function($tag) use ($attributes) {
+    		return Tag::createOrGet($tag, $attributes['user_id']);
+    	});
+
+    	$item = new self();
+    	$item->name = $attributes['name'];
+    	$item->summary = $attributes['summary'];
+    	$item->category_id = $attributes['category_id'];
+    	$item->user_id = $attributes['user_id'];
+    	$item->itenable_type = $attributes['itenable_typename'];
+    	$item->itenable_id   = $attributes['itenable_id'];
+    	$item->save();
+
+    	$tagModels->each(function($tagModel) use ($item) {
+    		Tagged::create([
+    			'item_id' => $item->id,
+    			'tag_id'  => $tagModel->id
+    		]);
+    	});
+
     }
 
 

@@ -22,13 +22,12 @@
 						<h1 style="font-size: 18px;">
 						Tags: 
 						<ul>
-							<li class="itemtag"><a class="itemtaglink" href="#">Javascript</a></li>
-							<li class="itemtag"><a class="itemtaglink" href="#">PHP</a></li>
-							<li class="itemtag"><a class="itemtaglink" href="#">Clojurescript</a></li>
-							<li class="itemtag"><a class="itemtaglink" href="#">Java</a></li>
-							<li class="itemtag"><a class="itemtaglink" href="#">C++</a></li>
-							<li class="itemtag"><a class="itemtaglink" href="#">Haskell</a></li>
-							<li class="itemtag"><a class="itemtaglink" href="#">Architecture</a></li>
+						@foreach($item->tags as $tag)
+							<li class="itemtag">
+								<a class="itemtaglink" href="{{route('tag.show', ['tag' => $tag->id])}}">{{$tag->name}}</a>
+							</li>
+						@endforeach
+
 						</ul>
 						
 						</h1>

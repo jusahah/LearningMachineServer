@@ -20,6 +20,7 @@ class ImageItemSeeder extends Seeder
     		'summary' => 'Kissakuva kissasta',
     		'category_id' => 6,
     		'user_id' => 1,
+    		'tags' => 'PHP,Javascript,Node.js',
     		'imagepath' => 'aws.amazon.com/8u4j54i3',
     		'thumbnail' => $base64
     	]);
@@ -29,6 +30,7 @@ class ImageItemSeeder extends Seeder
     		'summary' => 'Koirakuva koirasta',
     		'category_id' => 4,
     		'user_id' => 1,
+    		'tags' => 'PHP,Javascript,Clojure',
     		'imagepath' => 'aws.amazon.com/8u4j54i3koira',
     		'thumbnail' => $base64
     	]);    	

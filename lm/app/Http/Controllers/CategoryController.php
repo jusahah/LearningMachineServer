@@ -11,6 +11,13 @@ use App\Http\Requests\NewCategoryRequest;
 
 class CategoryController extends Controller
 {
+
+    public function __construct() {
+        // Auth middleware already run
+
+        $this->middleware('hasViewRights', ['only' => ['show']]);
+        $this->middleware('hasAdminRights', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -82,9 +89,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+        return $category;
     }
 
     /**
