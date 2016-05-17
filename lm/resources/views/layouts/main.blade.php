@@ -51,6 +51,17 @@
 		<link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
 		<link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
 
+		<style>
+		ul {
+			list-style: none;
+		}
+		li.itemtag {
+			padding: 2px;
+			margin: 4px;
+			display: inline-block;
+		}
+
+		</style>
 	</head>
 	
 	<!--
@@ -130,42 +141,34 @@
 				-->
 
 				<ul>
+
 					<li class="active">
 						<a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
-						<ul>
-							<li class="active">
-								<a href="index.html" title="Dashboard"><span class="menu-item-parent">Analytics Dashboard</span></a>
-							</li>
-							<li class="">
-								<a href="dashboard-social.html" title="Dashboard"><span class="menu-item-parent">Social Wall</span></a>
-							</li>
-						</ul>	
+							
 					</li>
 					<li class="top-menu-invisible">
-						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">SmartAdmin Intel</span></a>
-						<ul>
-							<li class="">
-								<a href="layouts.html" title="Dashboard"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">App Layouts</span></a>
+						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Categories</span></a>
+						<ul style="display: block;">
+							<li class="active">
+								<a href="{{ route('category.index') }}">List All</a>
 							</li>
-							<li class="">
-								<a href="skins.html" title="Dashboard"><i class="fa fa-lg fa-fw fa-picture-o"></i> <span class="menu-item-parent">Prebuilt Skins</span></a>
-							</li>
-							<li>
-								<a href="applayout.html"><i class="fa fa-cube"></i> App Settings</a>
+							<li class="active">
+								<a href="{{ route('category.create') }}">Create New</a>
 							</li>
 						</ul>
 					</li>
+
+					<li class="top-menu-invisible">
+						<a href="{{ route('item.index') }}"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Items</span></a>
+						
+					</li>
 					<li>
-						<a href="inbox.html"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">Outlook</span> <span class="badge pull-right inbox-badge margin-right-13">14</span></a>
+						<a href="{{ url('/logout') }}"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">Logout</span> <span class="badge pull-right inbox-badge margin-right-13">14</span></a>
 					</li>
 
 				</ul>
 			</nav>
-			
 
-			<span class="minifyme" data-action="minifyMenu"> 
-				<i class="fa fa-arrow-circle-left hit"></i> 
-			</span>
 
 		</aside>
 		<!-- END NAVIGATION -->
@@ -205,8 +208,24 @@
 			<!-- MAIN CONTENT -->
 			<div id="content">
 
+			<br>
+			 @if ($errors->has())
+	        <div class="alert alert-danger fade in">
+	          @foreach ($errors->all() as $error)
+	            {{$error}}</br>
+	          @endforeach
+	        </div>
+	      @endif
+			@if(Session::has('danger'))
+				<div class="alert alert-danger fade in">{{Session::get('danger')}}</div>
+			@endif			
+			@if(Session::has('warning'))
+				<div class="alert alert-warning fade in">{{Session::get('warning')}}</div>
+			@endif
+			@if(Session::has('success'))
+				<div class="alert alert-success fade in">{{Session::get('success')}}</div>
+			@endif
 
-			<h1>Content area</h1>
 				@yield('content')
 			</div>
 			<!-- END MAIN CONTENT -->

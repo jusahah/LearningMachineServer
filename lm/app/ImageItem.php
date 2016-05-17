@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+// Should perhaps implement Itenable interface
 class ImageItem extends Model
 {
 	protected static $itenable_typename = 'App\ImageItem';
@@ -34,5 +35,10 @@ class ImageItem extends Model
 
     public function item() {
     	return $this->morphOne('App\Item', 'itenable');
+    }
+
+    // Display methods
+    public function singleTemplateName() {
+    	return 'image';
     }
 }

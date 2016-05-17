@@ -25,5 +25,8 @@ Route::group(['middleware' => 'auth'], function() {
 	    return view('layouts/main');
 	});
 
+	Route::resource('item', 'ItemController');
+	Route::resource('category', 'CategoryController');
+
 });
 
