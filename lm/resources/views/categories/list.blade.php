@@ -50,7 +50,7 @@
 
 													<tr>
 														<td><h4>{{$arr['category']->marginLeft($arr['depth'])}} {{$arr['category']->name}}</h4></td>
-														<td>{{$arr['category']->numberOfOwnItems()}}</td>
+														<td>{{$arr['itemsum']}}</td>
 														<td><a class="btn btn-xs btn-primary" href="{{route('category.show', ['item' => $arr['category']->id])}}">Open</a></td>
 
 													</tr>

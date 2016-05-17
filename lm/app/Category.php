@@ -8,7 +8,7 @@ class Category extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
-    
+
     public function items() {
     	return $this->hasMany('App\Item');
     }
@@ -25,8 +25,14 @@ class Category extends Model
     	
 
     	$results = self::parseTree($categories, null);
+    	//dd($results);
+    	$sums = self::getSums($results);
+
     	$flattened = [];
     	self::flattenTree($results, $flattened);
+    	foreach ($flattened as $key => &$flatNode) {
+    		$flatNode['itemsum'] = $sums[$flatNode['category']->id];
+    	}
     	return $flattened;
     }
 
@@ -50,6 +56,30 @@ class Category extends Model
 	        }
 	    }
 	    return empty($return) ? null : $return;    
+	}
+
+	protected static function calculateSumSubTree(&$node, &$gatherSums) {
+		if ($node['children']) {
+			$totalSum = 0;
+
+			foreach ($node['children'] as $key => $kidNode) {
+				$totalSum += self::calculateSumSubTree($kidNode, $gatherSums);
+			}
+			$node['itemsum'] = $node['category']->items->count() + $totalSum;
+		} else {
+			$node['itemsum'] = $node['category']->items->count();
+		}
+		$gatherSums[$node['category']->id] = $node['itemsum'];
+		return $node['itemsum'];
+	}
+
+	protected static function getSums(&$categories) {
+		$gatherSums = [];
+		foreach ($categories as $key => $arrNode) {
+			self::calculateSumSubTree($arrNode, $gatherSums);
+		}
+
+		return $gatherSums;
 	}
 
 	protected static function flattenTree($tree, &$flatten, $depth = 0) {
