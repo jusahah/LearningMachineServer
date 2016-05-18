@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Tag;
 
 class User extends Authenticatable
 {
@@ -23,4 +24,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function allTags() {
+        return Tag::where('user_id', $this->id)->get();
+    }
 }

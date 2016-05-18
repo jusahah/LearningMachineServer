@@ -5,15 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Tag;
 
-class TagController extends Controller
+class SequenceController extends Controller
 {
-    protected $user;
-
-    public function __construct() {
-        $this->user = \Auth::user();
-    }
     /**
      * Display a listing of the resource.
      *
@@ -21,13 +15,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        // User knows his own tags so...
-        $tags = $this->user->allTags()->sortBy(function($tag, $key) {
-            return $tag->name;
-        });
-
-
-        return view('tags.list', compact('tags'));
+        //
     }
 
     /**
@@ -57,10 +45,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $tag)
+    public function show($id)
     {
-
-        return view('tags/single', compact('tag'));
+        //
     }
 
     /**

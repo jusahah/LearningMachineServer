@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::resource('category', 'CategoryController');
 	Route::resource('tag', 'TagController');
+	Route::resource('sequence', 'SequenceController');
 
 
 

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Item;
+
 class Category extends Model
 {
     public $timestamps = false;
@@ -19,6 +21,39 @@ class Category extends Model
 
     public function numberOfOwnItems() {
     	return $this->items->count();
+    }
+
+    public function allItems() {
+
+    	// This will be somewhat DB-heavy query
+
+    	// First we resolve what subcategories this category has
+    	$userCategories = self::where('user_id', \Auth::id())->get();
+
+    	$foundCategories = self::getAllChildCategories($this->id, $userCategories);
+    	array_push($foundCategories, $this);
+    	$idsForItemSearch = collect($foundCategories)->flatten()->map(function($category) {
+    		return $category->id;
+    	});
+
+    	return Item::getAllItemsBasedOnCategoryIds($idsForItemSearch);
+
+    }
+
+    protected static function getAllChildCategories($forId, $categories) {
+
+    	$directChildren = $categories->filter(function($c) use ($forId) {
+    		return $c->parent_id == $forId;
+    	});
+    	
+    	if ($directChildren->count() === 0) return [];
+    	$kidKids = [];
+    	foreach ($directChildren as $key => $kidCategory) {
+    		array_push($kidKids, $kidCategory);
+    		array_push($kidKids, self::getAllChildCategories($kidCategory->id, $categories));
+    	}
+
+    	return $kidKids;
     }
 
     public static function createCategoryTree($categories) {

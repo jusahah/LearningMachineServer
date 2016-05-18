@@ -90,7 +90,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $category;
+        return view('categories.single', compact('category'));
     }
 
     /**

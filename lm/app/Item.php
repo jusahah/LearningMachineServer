@@ -34,6 +34,10 @@ class Item extends Model
     	return $this->hasMany('App\Question');
     }
 
+    public static function getAllItemsBasedOnCategoryIds($ids) {
+    	return self::whereIn('category_id', $ids)->get();
+    } 
+
     public static function createItem($attributes) {
 
     	$tags = collect(explode(',', $attributes['tags']));
