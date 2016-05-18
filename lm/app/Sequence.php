@@ -97,7 +97,7 @@ class Sequence extends Model
     		if ($sequenceable->isSequence()) {
     			
     			return $sequenceable->sequenceable->sequenceables->sortBy(function($s) {
-    				return $s->order;
+    				return $s->pivot->order;
     			});
     		} else {
     			return $sequenceable;

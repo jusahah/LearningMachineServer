@@ -61,7 +61,14 @@ class SequenceController extends Controller
         $sequenceables = $sequence->sequenceables->sortBy(function($s) {
             return $s->pivot->order;
         });
-        return view('sequences.single', compact('sequence', 'sequenceables'));
+        $allSequenceables = \Auth::user()->getSequenceables()->sortBy(function($s) {
+            return $s->sequenceable_type;
+        });
+        return view('sequences.single', compact(
+            'sequence', 
+            'sequenceables', 
+            'allSequenceables'
+        ));
     }
 
     /**
@@ -93,9 +100,12 @@ class SequenceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sequence $sequence)
     {
-        dd("Delete: " . $id);
+        // Onwership has been confirmed in middleware
+        $sequence->delete();
+        \Session::flash('success', 'Sequence was deleted');
+        return redirect()->back();        
     }
 
     public function reorder(Request $request, Sequence $sequence) {

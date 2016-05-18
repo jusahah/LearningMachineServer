@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Tag;
 use App\Sequence;
+use App\Sequenceable;
 
 class User extends Authenticatable
 {
@@ -32,5 +33,9 @@ class User extends Authenticatable
 
     public function getSequences() {
         return Sequence::where('user_id', $this->id)->get();
+    }
+
+    public function getSequenceables() {
+        return Sequenceable::where('user_id', $this->id)->get();
     }
 }

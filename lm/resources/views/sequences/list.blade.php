@@ -72,3 +72,39 @@
 
 							</div>
 @endsection				
+
+
+@section('js')
+
+<script>
+
+console.log("Js injected");
+$(function() {
+
+	$(".deletesequence").click(function(e) {
+		var deletepath = $(e.target).attr('data-deletepath');
+		console.log("Clicked that!: " + deletepath);
+		
+				$.SmartMessageBox({
+					title : "Confirm Delete",
+					content : "Deletion of sequence can not be reversed",
+					buttons : '[Cancel][Delete]'
+				}, function(ButtonPressed) {
+					if (ButtonPressed === "Delete") {
+						window.location = deletepath;
+					}
+					if (ButtonPressed === "Cancel") {
+						
+					}
+		
+				});
+				// Progressive enchancement
+				e.preventDefault();
+			})
+
+});
+
+</script>
+
+
+@endsection		

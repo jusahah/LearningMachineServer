@@ -31,4 +31,8 @@ class Question extends Model
     	parent::delete();
 
     }
+    // Adapter to interface sequenceable
+    public function getNameAttribute() {
+    	return $this->question;
+    }
 }
