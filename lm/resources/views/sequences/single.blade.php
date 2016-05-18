@@ -4,13 +4,13 @@
 
 <div class="well well-sm">
 <div class="row">
-	<div class="col-md-5 col-sm-12 col-lg-5">
+	<div class="col-md-7 col-sm-12 col-lg-7">
 	
 	
 				
-		<h1>Reorder your sequence</h1>
-
-		<div class="dd" id="reorderlist">
+		<h1>Build your sequence</h1>
+		<div>
+		<div class="dd" id="reorderlist" style="float: none;">
 			<ol class="dd-list">
 
 				@foreach($sequenceables as $sequenceable)
@@ -19,12 +19,23 @@
 				
 			</ol>
 		</div>
+		</div>
 		<button class="btn btn-primary" id="saveorder">Save New Order</button>
-		<hr>
-
-		<h4>Add to Sequence by clicking item in the table</h4>
+		<p id="pendingchanges" style="margin-top: 4px; font-style: italic; font-size: 12px; color: #444;"></p>
 		<br>
-		<div class="custom-scroll table-responsive" style="max-height:420px; overflow-y: scroll;">
+
+
+
+		
+
+
+				
+	</div>
+	<div class="col-md-5 col-sm-12 col-lg-5">
+
+		<h1>Add to Sequence (click)</h1>
+
+		<div class="custom-scroll table-responsive" style="max-height:420px; margin-top: 15px; overflow-y: scroll;">
 											
 
 			<table class="table table-bordered">
@@ -45,16 +56,7 @@
 			</table>
 		
 		</div>
-
-		
-
-
-				
-	</div>
-	<div class="col-md-7 col-sm-12 col-lg-7">
-
-		<h1>Info about sequence</h1>
-
+		<br>
 	</div>
 
 </div>	
@@ -71,7 +73,44 @@
 <script>
 
 
+
+
 $(function() {
+
+	var latestSave;
+
+	function getIdsFromDOM() {
+		var lis = $('#reorderlist').find('ol').find('li');
+		var ids = [];
+
+		lis.each(function(i, li) {
+			ids.push($(li).attr('data-id'));
+		});
+
+		return ids;	
+	}
+
+	function stashCurrentStateAsLatestSave() {
+		latestSave = getIdsFromDOM();
+		updatePendingChangesText();
+	}
+
+	function checkIfIdenticalWithLatestSave() {
+		if (!latestSave) {
+			// No changes/saves yet
+			return false;
+		}
+
+		return JSON.stringify(latestSave) === JSON.stringify(getIdsFromDOM());
+	}
+
+	function updatePendingChangesText() {
+		if (checkIfIdenticalWithLatestSave()) {
+			$('#pendingchanges').empty();
+		} else {
+			$('#pendingchanges').empty().append('There are unsaved changes!');
+		}
+	}
 
 	$('#reorderlist').nestable({
 		group : 1
@@ -79,6 +118,7 @@ $(function() {
 		console.log("Reordering");
 		var jsonOrder = JSON.stringify($('#reorderlist').nestable('serialize'));
 		console.log(jsonOrder);
+		updatePendingChangesText();
 	});
 	$.ajaxSetup({
 	    headers: {
@@ -91,6 +131,7 @@ $(function() {
 
 		if (clicked.hasClass('removesequenceable')) {
 			clicked.closest('li').remove();
+			updatePendingChangesText();
 		}
 
 	});
@@ -105,8 +146,11 @@ $(function() {
 		  data: { order:  jsonOrder}
 		})
 		  .done(function( msg ) {
-		    alert( "Order has been changed");
-		  });
+		  	stashCurrentStateAsLatestSave();
+		    alert( "Sequence has been updated on the server!");
+		  }).fail(function(msg) {
+		  	alert('Saving failed!');
+		  })
 	});
 
 	$('#bringitemin').on('click', function() {
@@ -148,6 +192,7 @@ $(function() {
 		if (!toBeAdded.id) return false; // User dragged mouse or something
 
 		addToSequence(toBeAdded);
+		updatePendingChangesText();
 
 
 	});
@@ -169,6 +214,8 @@ $(function() {
 	    return html;
 
 	}
+
+	stashCurrentStateAsLatestSave();
 });
 
 
