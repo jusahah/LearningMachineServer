@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Sequence;
+use App\Question;
 
 class SequenceController extends Controller
 {
@@ -23,7 +24,7 @@ class SequenceController extends Controller
     public function index()
     {
         //
-        $sequences = $this->user->getSequences();
+        $sequences = $this->user->getSequences(); // with pagination
 
         return view('sequences.list', compact('sequences'));
     }
@@ -123,5 +124,10 @@ class SequenceController extends Controller
             'message' => 'Order saved'
         ], 200);
         
+    }
+
+    public function showSequencesWhereQuestionPresent(Question $question) {
+        $sequences = $question->sequenceable->sequences()->paginate(25);
+        return view('sequences.list', compact('sequences'));
     }
 }

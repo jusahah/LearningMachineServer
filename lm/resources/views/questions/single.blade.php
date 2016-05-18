@@ -42,7 +42,7 @@
 							<td><strong>Slideshowt</strong></td>
 							
 							<td>
-							{{$question->sequencesQuestionIsMemberOf()->count()}} kpl <span style="font-size: 14px;">(<a href="">Näytä slideshowt</a>)</span>
+							{{$question->sequencesQuestionIsMemberOf()->count()}} kpl <span style="font-size: 14px;">(<a href="{{route('question.sequences.list', ['question' => $question->id])}}">Näytä slideshowt</a>)</span>
 							</td>
 						</tr>
 					</tbody>

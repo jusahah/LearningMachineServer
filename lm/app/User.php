@@ -33,7 +33,7 @@ class User extends Authenticatable
     }
 
     public function getSequences() {
-        return Sequence::where('user_id', $this->id)->get();
+        return Sequence::where('user_id', $this->id)->paginate(25);
     }
 
     public function getSequenceables() {

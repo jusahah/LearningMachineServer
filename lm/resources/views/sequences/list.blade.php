@@ -36,6 +36,7 @@
 									<div class="widget-body">
 										
 										<div class="table-responsive">
+											{!! $sequences->render() !!}
 										
 											<table class="table table-bordered">
 												<thead>
@@ -61,6 +62,7 @@
 													@endforeach
 
 												</tbody>
+
 											</table>
 											
 										</div>

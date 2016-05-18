@@ -60,6 +60,11 @@ Route::group(['middleware' => 'auth'], function() {
 		'uses' => 'QuestionController@destroy',
 		'middleware' => 'ownerOfQuestion'
 	]);	
+	Route::get('question/{question}/sequences', [
+		'as' => 'question.sequences.list',
+		'uses' => 'SequenceController@showSequencesWhereQuestionPresent'
+	]);
+
 
 
 });
