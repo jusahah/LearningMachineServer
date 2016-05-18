@@ -48,7 +48,13 @@ Route::group(['middleware' => 'auth'], function() {
 		'middleware' => 'ownerOfSequence'
 	]);
 
-
+	// Question routes
+	Route::resource('question', 'QuestionController');
+	Route::get('question/{question}/delete', [
+		'as' => 'question.customdelete',
+		'uses' => 'QuestionController@destroy',
+		'middleware' => 'ownerOfQuestion'
+	]);	
 });
 
 Route::group(['prefix' => 'opendata'], function() {

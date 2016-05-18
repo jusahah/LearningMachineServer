@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Tag;
 use App\Sequence;
 use App\Sequenceable;
+use App\Question;
 
 class User extends Authenticatable
 {
@@ -37,5 +38,9 @@ class User extends Authenticatable
 
     public function getSequenceables() {
         return Sequenceable::where('user_id', $this->id)->get();
+    }
+
+    public function getQuestions() {
+        return Question::where('user_id', $this->id)->get();
     }
 }

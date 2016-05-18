@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'hasViewRights' => \App\Http\Middleware\HasViewRights::class, 
         'ownerOfSequence' => \App\Http\Middleware\OwnerOfSequence::class,
+        'ownerOfQuestion' => \App\Http\Middleware\OwnerOfQuestion::class,
     ];
 }

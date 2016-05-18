@@ -38,6 +38,7 @@ $factory->define(App\Tag::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Question::class, function (Faker\Generator $faker) {
     return [
+    	'user_id' => rand(1,2),
         'question' => $faker->name,
         'item_id'  => rand(1,2),
         'answer' => $faker->name

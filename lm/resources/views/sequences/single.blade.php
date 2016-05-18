@@ -20,7 +20,7 @@
 			</ol>
 		</div>
 		</div>
-		<button class="btn btn-primary" id="saveorder">Save New Order</button>
+		<button class="btn btn-success" id="saveorder">Update Sequence</button>
 		<p id="pendingchanges" style="margin-top: 4px; font-style: italic; font-size: 12px; color: #444;"></p>
 		<br>
 
@@ -38,7 +38,7 @@
 		<div class="custom-scroll table-responsive" style="max-height:420px; margin-top: 15px; overflow-y: scroll;">
 											
 
-			<table class="table table-bordered">
+			<table class="table table-bordered table-hover">
 
 				<tbody class="addtosequence">
 				@foreach($allSequenceables as $sequenceable)
