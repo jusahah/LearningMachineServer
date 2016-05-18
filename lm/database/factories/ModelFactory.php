@@ -36,10 +36,11 @@ $factory->define(App\Tag::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Question::class, function (Faker\Generator $faker) {
+$num = 1;
+$factory->define(App\Question::class, function (Faker\Generator $faker) use (&$num) {
     return [
     	'user_id' => rand(1,2),
-        'question' => $faker->name,
+        'question' => ($num++) . 'question',
         'item_id'  => rand(1,2),
         'answer' => $faker->name
     ];
@@ -48,6 +49,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
 $factory->define(App\Answer::class, function (Faker\Generator $faker) {
     return [
         'question_id' => rand(1,12),
-        'correct' => rand(1,2) == 1
+        'correct' => rand(1,2) == 1,
+        'answergiven' => $faker->paragraph
     ];
 });

@@ -25,6 +25,17 @@ class Question extends Model
 
     // Instance methods
 
+    public function sequencesQuestionIsMemberOf() {
+
+    	// We must group by sequence id so same sequence is not counted twice
+
+    	return $this->sequenceable->sequences->groupBy(function($seq) {
+    		return $seq->id;
+    	})->map(function($grouped) {
+    		return $grouped->first();
+    	});
+    }
+
     public function returnYourPortionOfSequence() {
     	return $this;
     }
@@ -57,6 +68,7 @@ class Question extends Model
     } 
 
     public function correctPercent() {
+    	// Percentage of correct answers out of all answers
     	$answers = $this->answers;
 
     	if ($answers->count() === 0) return '---';
@@ -66,6 +78,14 @@ class Question extends Model
     	});
     	return round($corrects->count() / $answers->count(), 2) * 100;
 
+    }
+
+    public function questionPreview() {
+    	return str_limit($this->question, 32);
+    }
+
+    public function getAnswersByDate() {
+    	return $this->answers->sortBy('created_at');
     }
 
 }

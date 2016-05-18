@@ -31,8 +31,6 @@
 								<th>Muistiinpano</th>
 								<th>Kategoria (muistiinpano)</th>								
 								<th>Kysymys</th>
-								<th>Kysymystyyppi</th>
-								<th>Vastaus</th>
 								<th>Luotu</th>
 								<th>Viimeksi kysytty</th>
 								<th>Vastauksia</th>
@@ -44,11 +42,9 @@
 						<tbody>
 							@foreach($questions as $question)
 							<tr>
-								<td>{{$question->item->name}}</td>
-								<td>{{$question->item->category->name}}</td>
-								<td>{{$question->question}}</td>
-								<td>{{$question->type}}</td>
-								<td>{{$question->answer}}</td>
+								<td><a href="{{route('item.show', ['item' => $question->item->id])}}">{{$question->item->name}}</a></td>
+								<td><a href="{{route('category.show', ['category' => $question->item->category->id])}}">{{$question->item->category->name}}</a></td>
+								<td>{{$question->questionPreview()}}</td>
 								<td>{{$question->printCreatedAt()}}</td>
 								<td>{{$question->lastAnswerTime()}}</td>
 								<td>{{$question->answerCount()}}</td>
@@ -56,11 +52,12 @@
 								<td><a class="btn btn-xs btn-primary" href="{{route('question.show', ['question' => $question->id])}}">Open</a></td>
 								<td><a class="btn btn-danger btn-xs deletequestion" href="{{route('question.customdelete', ['question' => $question->id])}}" data-deletepath="{{route('question.customdelete', ['question' => $question->id])}}">Poista</a></td>
 					
-				</button></td>
+				
 							</tr>
 							@endforeach
 
 						</tbody>
+						{!! $questions->render() !!}
 					</table>
 					
 				</div>

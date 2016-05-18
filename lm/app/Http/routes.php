@@ -26,6 +26,11 @@ Route::group(['middleware' => 'auth'], function() {
 	});
 
 	Route::resource('item', 'ItemController');
+	Route::get('item/{item}/questions', [
+		'as' => 'item.question.list',
+		'uses' => 'QuestionController@showQuestionsForItem'
+	]);
+
 	// This route is called from javascript
 	Route::get('item/{item}/delete', ['as' => 'item.customdelete', 'uses' => 'ItemController@destroy']);
 
@@ -55,6 +60,8 @@ Route::group(['middleware' => 'auth'], function() {
 		'uses' => 'QuestionController@destroy',
 		'middleware' => 'ownerOfQuestion'
 	]);	
+
+
 });
 
 Route::group(['prefix' => 'opendata'], function() {

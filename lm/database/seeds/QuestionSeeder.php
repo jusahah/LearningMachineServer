@@ -11,7 +11,7 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-		factory(App\Question::class, 12)->create()->each(function($q) {
+		factory(App\Question::class, 220)->create()->each(function($q) {
         	// Nothingness
     	});
     }

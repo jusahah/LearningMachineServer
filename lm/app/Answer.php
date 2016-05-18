@@ -16,4 +16,8 @@ class Answer extends Model
     public function isCorrect() {
     	return $this->correct == 1;
     }
+
+    public function answerPreview() {
+    	return str_limit($this->answergiven, 32);
+    }
 }

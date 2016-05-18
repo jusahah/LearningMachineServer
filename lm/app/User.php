@@ -41,6 +41,6 @@ class User extends Authenticatable
     }
 
     public function getQuestions() {
-        return Question::where('user_id', $this->id)->get();
+        return Question::where('user_id', $this->id)->paginate(25);
     }
 }

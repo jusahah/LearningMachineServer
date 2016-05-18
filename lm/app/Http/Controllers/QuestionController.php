@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Question; 
+use App\Item;
 
 class QuestionController extends Controller
 {
+    /*
+    public function showQuestionsForItem(Item $item) {
+
+        $questions = $item->questions()->paginate(15);
+
+        return view('questions.list', compact('questions'));
+    }
+    */
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +26,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = \Auth::user()->getQuestions();
+        $questions = \Auth::user()->getQuestions(); // Comes with pagination
         
         return view('questions.list', compact('questions'));
     }
@@ -49,9 +58,9 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        //
+        return view('questions.single', compact('question'));
     }
 
     /**

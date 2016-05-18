@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Item;
 
 class ItemQuestionController extends Controller
 {
@@ -13,9 +14,11 @@ class ItemQuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Item $item)
     {
-        //
+        $questions = $item->questions()->paginate(15);
+
+        return view('questions.list', compact('questions'));
     }
 
     /**
