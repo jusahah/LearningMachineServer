@@ -24,4 +24,11 @@ class Question extends Model
     public function returnYourPortionOfSequence() {
     	return $this;
     }
+
+    public function delete() {
+    	echo "Deleting question: " . $this->id . "\n";
+    	$this->sequenceable()->delete();
+    	parent::delete();
+
+    }
 }

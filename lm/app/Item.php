@@ -4,14 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use DB;
+
 use App\LatestAddition;
 use App\Tag;
 use App\Tagged;
 use Carbon\Carbon;
 
+use App\Modeltraits\PrintDateTimes;
+
 class Item extends Model
 {
     //
+    use PrintDateTimes;
 
     public function category() {
     	return $this->belongsTo('App\Category');
@@ -67,11 +72,19 @@ class Item extends Model
 
     // Override Laravel implementation!
     public function delete() {
+    	// Perhaps put into DB transaction!!
 
     	// We make sure we delete also the real model (textItem, imageItem, etc.)
-    	$this->itenable()->delete();
-    	// Route to parent default destructor that delete this guy
-    	parent::delete();
+    	DB::transaction(function () {
+	    	$this->itenable()->delete();
+	    	$this->questions->each(function($question) {
+	    		echo "Calling delete on question ". $question->id . "\n";
+	    		$question->delete();
+	    	});
+	    	$this->sequenceable->delete();
+	    	// Route to parent default destructor that delete this guy
+	    	parent::delete();
+	    });
     }
 
     // Instance methods
@@ -121,11 +134,6 @@ class Item extends Model
     public function printSummary() {
     	// Max 32 chars...
     	return str_limit($this->summary, 32);
-    }
-
-    public function printCreatedAt() {
-    	$c = new Carbon($this->created_at);
-    	return $c->toDateTimeString();
     }
 
 }

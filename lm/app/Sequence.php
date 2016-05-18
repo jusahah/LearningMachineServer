@@ -5,12 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
-class CircularDependency extends \Exception {}
+use App\Modeltraits\PrintDateTimes;
+
+use App\Sequenceable;
 
 
 class Sequence extends Model
 {
     //
+    use PrintDateTimes; // Contains printing formatting for Carbon objects etc
     
 	public function sequenceable() {
     	return $this->morphOne('App\Sequenceable', 'sequenceable');
@@ -18,14 +21,51 @@ class Sequence extends Model
     
 
     public function sequenceables() {
-    	return $this->belongsToMany('App\Sequenceable');
+    	return $this->belongsToMany('App\Sequenceable')->withPivot('order');
+    }
+
+    public function getLength() {
+    	return $this->sequenceables->count();
+    }
+
+    public function saveNewOrder($orderArray) {
+    	// Check all sequenceables belong to User
+    	$ids = collect($orderArray)->map(function($arrItem) {
+    		return (int)$arrItem->id;
+    	});
+    	
+    	// Check user owns sequencables he is adding to sequence
+    	// throws SequenceableNotOwnedByUser if not so
+    	$sequenceables = Sequenceable::getIfCurrentUserOwnsTheseIds($ids->unique()->toArray());
+
+    	// Turn unique sequenceables into map for lookup phase
+    	$sequenceableMap = [];
+    	$sequenceables->each(function($s) use (&$sequenceableMap) {
+    		$sequenceableMap[$s->id] = $s;
+    	});
+
+    	// Replace in original id array the id with actual sequenceable
+    	$allSequenceables = $ids->map(function($id) use ($sequenceableMap) {
+    		return $sequenceableMap[$id];
+    	});
+
+
+    	// All is fine
+    	$this->replaceOrderedSequenceables($allSequenceables);
+
+
+
+
+
     }
 
     public function replaceOrderedSequenceables($sequenceables) {
     	// Check for circular dependencies
+    	/*
     	$sequenceables->map(function($sequenceable, $key) {
     		echo $sequenceable->id . " | " . $sequenceable->sequenceable_type . "\n";
     	});
+    	*/
 
 
     	$sequenceables = $this->flattenPossibleNestedSequences($sequenceables);
@@ -53,15 +93,25 @@ class Sequence extends Model
 
     protected function flattenPossibleNestedSequences($sequenceables) {
     	return $sequenceables->map(function($sequenceable, $key) {
-    		echo $sequenceable->sequenceable_type . "\n";
+    		
     		if ($sequenceable->isSequence()) {
-    			echo "Sequence\n";
-    			echo $sequenceable->sequenceable->sequenceables->count();
-    			return $sequenceable->sequenceable->sequenceables;
+    			
+    			return $sequenceable->sequenceable->sequenceables->sortBy(function($s) {
+    				return $s->order;
+    			});
     		} else {
     			return $sequenceable;
     		}
     	})->flatten();   	
+    }
+
+    public function actualType() {
+    	return strtolower($this->printType());
+    }
+
+    public function printType() {
+    	$className = $this->itenable_type;
+    	return trans("classnames.$className");
     }
 /*
     protected function searchCircular($sequenceables, $listOfUsedSeqs) {

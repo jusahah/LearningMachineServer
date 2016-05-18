@@ -13,6 +13,7 @@ class CreateSequenceablesSequencesTable extends Migration
     public function up()
     {
         Schema::create('sequence_sequenceable', function (Blueprint $table) {
+            
             $table->integer('sequence_id')->unsigned();
             $table->integer('sequenceable_id')->unsigned();
             $table->integer('order')->unsigned();

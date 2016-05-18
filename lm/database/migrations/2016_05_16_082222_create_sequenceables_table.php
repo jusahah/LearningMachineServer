@@ -13,9 +13,17 @@ class CreateSequenceablesTable extends Migration
     public function up()
     {
         Schema::create('sequenceables', function (Blueprint $table) {
+
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
             $table->integer('sequenceable_id')->unsigned();
             $table->string('sequenceable_type');
+
+            $table
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
         });
     }

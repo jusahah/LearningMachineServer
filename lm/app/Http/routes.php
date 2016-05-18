@@ -34,8 +34,15 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::resource('category', 'CategoryController');
 	Route::resource('tag', 'TagController');
-	Route::resource('sequence', 'SequenceController');
 
+	// Sequence routes
+	Route::resource('sequence', 'SequenceController');
+	Route::get('sequence/{sequence}/delete', ['as' => 'sequence.customdelete', 'uses' => 'SequenceController@destroy']);
+	Route::post('sequence/{sequence}/reorder', [
+		'as' => 'sequence.reorder', 
+		'uses' => 'SequenceController@reorder',
+		'middleware' => 'ownerOfSequence'
+	]);
 
 
 });

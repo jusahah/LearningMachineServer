@@ -166,6 +166,10 @@
 						<a href="{{ route('tag.index') }}"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Tags</span></a>
 						
 					</li>
+					<li class="top-menu-invisible">
+						<a href="{{ route('sequence.index') }}"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Sequences</span></a>
+						
+					</li>
 					<li>
 						<a href="{{ url('/logout') }}"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">Logout</span> <span class="badge pull-right inbox-badge margin-right-13">14</span></a>
 					</li>

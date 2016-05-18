@@ -46,6 +46,11 @@ class SequenceSeeder extends Seeder
     	]);
     	$sequenceable21 = App\Sequenceable::find(1);
     	$sequenceable22 = App\Sequenceable::find(2);
+    	$sequenceable23 = App\Sequenceable::find(7);
+    	$sequenceable24 = App\Sequenceable::find(8);
+    	$sequenceable25 = App\Sequenceable::find(9);
+    	$sequenceable26 = App\Sequenceable::find(19);
+    	$sequenceable27 = App\Sequenceable::find(20);
 
 
     	
@@ -68,23 +73,25 @@ class SequenceSeeder extends Seeder
 
     	$seq->replaceOrderedSequenceables(collect([
     		$sequenceable21,
-    		$sequenceable22
+    		$sequenceable23,
     	]));	
 
     	$seq2->replaceOrderedSequenceables(collect([
     		$seq->sequenceable,
-    		$seq->sequenceable
+    		$seq->sequenceable,
+    		App\Sequenceable::find(17)
     	]));
     
     	$seq3->replaceOrderedSequenceables(collect([
-    		$seq2->sequenceable,
-    		$seq2->sequenceable
+    		$sequenceable26,
+    		$sequenceable25,
+    		$sequenceable24
     	]));
 
     	$seq4->replaceOrderedSequenceables(collect([
-    		$seq3->sequenceable,
-    		$seq2->sequenceable,
-    		$seq3->sequenceable
+    		$sequenceable27,
+    		$sequenceable26,
+    		App\Sequenceable::find(2)
     	]));
 
 

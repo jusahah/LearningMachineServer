@@ -36,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         // Create sequenceable model for this item
         Sequence::created(function($sequence) {
             Sequenceable::create([
+                'user_id' => $sequence->user_id,
                 'sequenceable_id' => $sequence->id,
                 'sequenceable_type' => Sequence::class
             ]);
@@ -59,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
         // Create sequenceable model for this item
         Item::created(function($item) {
             Sequenceable::create([
+                'user_id' => $item->user_id,
                 'sequenceable_id' => $item->id,
                 'sequenceable_type' => Item::class
             ]);
@@ -67,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
         Item::deleted(function($item) {
             // Delete sequenceables when its item type
             echo "Deleting item";
+            return;
             try {
                 $sequenceable = Sequenceable::where('sequenceable_id', $item->id)
                     ->where('sequenceable_type', 'App\Item')->firstOrFail(); 
@@ -82,6 +85,7 @@ class AppServiceProvider extends ServiceProvider
         // Create sequenceable model for this question
         Question::created(function($question) {
             Sequenceable::create([
+                'user_id' => $question->item->user_id,
                 'sequenceable_id' => $question->id,
                 'sequenceable_type' => Question::class
             ]);

@@ -6,7 +6,7 @@ class TextItemSeeder extends Seeder
 {
     public function run() {   	
 		App\TextItem::createItem([
-    		'name' => 'Testiteksti',
+    		'name' => 'Testiteksti11',
     		'summary' => 'Note about cash',
     		'category_id' => 5,
     		'user_id' => 1,
@@ -16,7 +16,7 @@ class TextItemSeeder extends Seeder
     	]);
 
 		App\TextItem::createItem([
-    		'name' => 'Testiteksti',
+    		'name' => 'Testiteksti22',
     		'summary' => 'Ok, we have DB tables and migrations, now let’s create models for them. The main part here is to assign a many-to-many relationship – it can be done from either of main tables models.',
     		'category_id' => 2,
     		'user_id' => 1,
@@ -25,7 +25,7 @@ class TextItemSeeder extends Seeder
     	]);
 
 		App\TextItem::createItem([
-    		'name' => 'Testiteksti',
+    		'name' => 'Testiteksti33',
     		'summary' => 'Want to hire our team of professional Laravel developers?',
     		'category_id' => 4,
     		'user_id' => 1,
