@@ -62,3 +62,51 @@
 		</div>
 	</div>	
 </div>					
+
+
+<!-- Modal -->
+<div class="modal fade" id="questionAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Kysymyksen luonti</h4>
+      </div>
+      <div class="modal-body">
+     
+		<form class="smart-form" method="POST" action="{{route('question.store')}}">
+			{!! csrf_field() !!}
+		<fieldset>
+			
+			<section>
+				<label class="label">Syötä nimi</label>
+				<label class="input ">
+					<input type="text" class="input" name="name">
+				</label>
+			</section>
+			<section>
+				<label class="label">Syötä kysymysteksti</label>
+				<label class="input ">
+					<textarea type="text" class="form-control" rows="4" name="question"></textarea>
+				</label>
+			</section>		
+			<section>
+				<label class="label">Syötä vastausteksti</label>
+				<label class="input ">
+					<textarea type="text" class="input form-control" rows="4" name="answer"></textarea>
+				</label>
+			</section>								
+		</fieldset>
+
+		<footer>
+			<button type="submit" class="btn btn-primary">
+				Luo
+			</button>
+		</footer>
+		</form>
+	
+      </div>
+
+    </div>
+  </div>
+</div>

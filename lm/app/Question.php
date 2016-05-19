@@ -7,10 +7,31 @@ use Illuminate\Database\Eloquent\Model;
 use App\Modeltraits\PrintDateTimes;
 use App\Answer;
 
+use DB;
+
 class Question extends Model
 {
     use PrintDateTimes;
     //
+    protected $guarded = [];
+
+    // Override
+    public static function create(array $attributes = []) {
+
+        DB::transaction(function() use ($attributes) {
+            $question = parent::create($attributes);
+
+            // We need to create matching sequenceable for the question
+            Sequenceable::create([
+                'user_id' => $question->item->user_id,
+                'sequenceable_id' => $question->id,
+                'sequenceable_type' => Question::class
+            ]);  
+        });
+     
+
+    }
+
 	public function sequenceable() {
     	return $this->morphOne('App\Sequenceable', 'sequenceable');
     }

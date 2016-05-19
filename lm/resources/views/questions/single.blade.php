@@ -54,7 +54,7 @@
 		
 		<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 	
-		<div class="well" style="min-height: 180px;">
+		<div id="answerlist" class="well" style="min-height: 180px;">
 
 				<div class="table-responsive">
 				
@@ -71,11 +71,9 @@
 							@foreach($question->getAnswersByDate() as $answer)
 							<tr>
 								<td>{{$answer->answerPreview()}}</td>
-								<th>{{$answer->isCorrect() ? 'Kyllä' : 'Ei'}}</th>
-								<th>{{$answer->printCreatedAt()}}</th>
-								<td><button class="btn btn-xs btn-primary" href="">Lue</button></td>
-					
-				
+								<td>{{$answer->isCorrect() ? 'Kyllä' : 'Ei'}}</td>
+								<td>{{$answer->printCreatedAt()}}</td>
+								<td><button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#showFullAnswer" data-fullanswer="{{$answer->answergiven}}">Lue</button></td>
 							</tr>
 							@endforeach
 
@@ -91,4 +89,43 @@
 
 	
 </div>	
+
+<!-- Modal -->
+<div class="modal fade" id="showFullAnswer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Koko vastaus</h4>
+      </div>
+      <div class="modal-body">
+     
+		
+		<p id="fullanswer"></p>
+
+
+	
+      </div>
+
+    </div>
+  </div>
+</div>
+@endsection
+
+
+@section('js')
+<script>
+$(function() {
+	$('#answerlist').on('click', function(e) {
+		var $el = $(e.target);
+
+		if ($el.prop('tagName').toUpperCase() === 'BUTTON') {
+			var fullanswer = $el.attr('data-fullanswer');
+			$('#fullanswer').empty().append(fullanswer);
+		}
+	});
+});
+
+</script>
+
 @endsection

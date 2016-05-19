@@ -167,12 +167,23 @@
 						
 					</li>
 					<li class="top-menu-invisible">
-						<a href="{{ route('sequence.index') }}"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Sequences</span></a>
-						
+						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Sequences</span></a>
+						<ul>
+							<li>
+								<a href="{{ route('sequence.index') }}">List All</a>
+							</li>
+							<li>
+								<a href="#" data-toggle="modal" data-target="#sequenceAddModal">Create New</a>
+							</li>
+						</ul>
 					</li>
 					<li class="top-menu-invisible">
-						<a href="{{ route('question.index') }}"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Questions</span></a>
-						
+						<a href="#"><i class="fa fa-lg fa-fw fa-cube txt-color-blue"></i> <span class="menu-item-parent">Questions</span></a>
+						<ul>
+							<li>
+								<a href="{{ route('question.index') }}">List All</a>
+							</li>
+						</ul>
 					</li>					
 					<li>
 						<a href="{{ url('/logout') }}"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">Logout</span> <span class="badge pull-right inbox-badge margin-right-13">14</span></a>
@@ -254,6 +265,41 @@
 
 			</div>
 		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="sequenceAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Sequencen luonti</h4>
+		      </div>
+		      <div class="modal-body">
+				<form class="smart-form" method="POST" action="{{route('sequence.store')}}">
+				{!! csrf_field() !!}
+				<fieldset>
+					
+					<section>
+						<label class="label">Syötä nimi</label>
+						<label class="input ">
+							<input type="text" class="input" name="name">
+						</label>
+					</section>
+				</fieldset>
+
+				<footer>
+					<button type="submit" class="btn btn-primary">
+						Luo
+					</button>
+				</footer>
+				</form>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+
+
 		<!-- END PAGE FOOTER -->
 
 		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
@@ -381,6 +427,8 @@
 		<script src="{{asset('js/plugin/fullcalendar/jquery.fullcalendar.min.js')}}"></script>
 
 		@yield('js')
+
+
 
 	</body>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\NewSequenceRequest;
 
 use App\Sequence;
 use App\Question;
@@ -45,9 +46,21 @@ class SequenceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewSequenceRequest $request)
     {
-        //
+        
+        // Note!
+        // We should seriously consider moving this into use-case
+        // or into User class where we can associate it automatically to user
+
+        // Already validated in request object
+        Sequence::create([
+            'user_id' => \Auth::id(),
+            'name' => $request->get('name')
+        ]);
+
+        \Session::flash('success', 'Sequence created!');
+        return redirect()->back();
     }
 
     /**

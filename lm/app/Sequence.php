@@ -15,6 +15,9 @@ class Sequence extends Model
     //
     use PrintDateTimes; // Contains printing formatting for Carbon objects etc
     
+
+    protected $guarded = [];
+    
 	public function sequenceable() {
     	return $this->morphOne('App\Sequenceable', 'sequenceable');
     }

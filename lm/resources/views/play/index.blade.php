@@ -74,9 +74,11 @@
 				
 				<button class="btn btn-primary" id="sequencemovenext" style="float: right; height: 48px; margin-left: 6px;">Seuraava</button>
 				<button class="btn btn-danger" id="sequencemoveback" style="float: right; height: 48px; margin-left: 6px;">Edellinen</button>
+			
+				<a href="{{route('sequence.index')}}" class="btn btn-info" style="float: right; height: 48px; margin-left: 6px; line-height: 32px;">Lopeta</a>
+			
+
 				</div>
-
-
 				<!-- Render here in a one big list of divs -->
 
 

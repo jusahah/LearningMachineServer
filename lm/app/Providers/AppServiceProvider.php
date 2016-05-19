@@ -82,14 +82,6 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
-        // Create sequenceable model for this question
-        Question::created(function($question) {
-            Sequenceable::create([
-                'user_id' => $question->item->user_id,
-                'sequenceable_id' => $question->id,
-                'sequenceable_type' => Question::class
-            ]);
-        });
 
         Question::deleted(function($question) {
             // Delete sequenceables when its question type

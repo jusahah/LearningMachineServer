@@ -16,8 +16,9 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('item_id')->unsigned()->index();
-            $table->string('question', 128);
-            $table->string('answer', 128);
+            $table->string('name', 128);
+            $table->text('question');
+            $table->text('answer');
             $table->timestamps();
 
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');

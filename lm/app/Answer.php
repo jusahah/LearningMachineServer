@@ -20,4 +20,5 @@ class Answer extends Model
     public function answerPreview() {
     	return str_limit($this->answergiven, 32);
     }
+
 }

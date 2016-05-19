@@ -13,7 +13,8 @@ class Sequenceable extends Model
 {
 
     public $timestamps = false;
-
+    protected $guarded = [];
+    
     public function sequences() {
     	return $this->belongsToMany('App\Sequence')->withPivot('order');
     }

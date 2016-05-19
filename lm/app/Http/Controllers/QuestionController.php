@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\NewQuestionRequest;
 
 use App\Question; 
 use App\Item;
@@ -49,9 +50,24 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewQuestionRequest $request)
     {
-        //
+        // Note!
+        // We should seriously consider moving this into use-case
+        // or into User class where we can associate it automatically to user
+
+        // Already validated in request object
+        // Also already checked that user owns the item this question is about to be bound
+        Question::create([
+            'item_id' => $request->get('item_id'),
+            'user_id' => \Auth::id(),
+            'name' => $request->get('name'),
+            'question' => $request->get('question'),
+            'answer' => $request->get('answer')
+        ]);
+
+        \Session::flash('success', 'Question created!');
+        return redirect()->back();        
     }
 
     /**
