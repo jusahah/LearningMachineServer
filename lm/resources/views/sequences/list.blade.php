@@ -44,6 +44,7 @@
 														<th>Name</th>
 														<th>Length</th>
 														<th>Created At</th>
+														<th>Play</th>
 														<th>Open</th>
 														<th>Delete</th>
 													</tr>
@@ -55,6 +56,7 @@
 														<td>{{$sequence->name}}</td>
 														<td>{{$sequence->getLength()}}</td>
 														<td>{{$sequence->printCreatedAt()}}</td>
+														<td><a class="btn btn-xs btn-warning" href="{{route('sequence.play', ['sequence' => $sequence->id])}}">Play!</a></td>
 														<td><a class="btn btn-xs btn-primary" href="{{route('sequence.show', ['sequence' => $sequence->id])}}">Open</a></td>
 														<td><a class="btn btn-danger btn-xs deletesequence" href="{{route('sequence.customdelete', ['sequence' => $sequence->id])}}" data-deletepath="{{route('sequence.customdelete', ['sequence' => $sequence->id])}}">Poista</a></td>
 

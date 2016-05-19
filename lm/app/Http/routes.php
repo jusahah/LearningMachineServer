@@ -52,6 +52,10 @@ Route::group(['middleware' => 'auth'], function() {
 		'uses' => 'SequenceController@reorder',
 		'middleware' => 'ownerOfSequence'
 	]);
+	Route::get('sequence/{sequence}/play', [
+		'as' => 'sequence.play',
+		'uses' => 'PlayController@playSequence'
+	]);
 
 	// Question routes
 	Route::resource('question', 'QuestionController');
@@ -64,6 +68,17 @@ Route::group(['middleware' => 'auth'], function() {
 		'as' => 'question.sequences.list',
 		'uses' => 'SequenceController@showSequencesWhereQuestionPresent'
 	]);
+
+	// AJAX routes
+	// Add somekind of middleware checking request is ajax...
+	Route::group(['prefix' => 'json'], function() {
+
+		Route::post('receiveanswerwithresult', [
+			'as' => 'play.receiveanswerwithresult',
+			'uses' => 'PlayController@receiveJSONAnswerWithResult'
+		]);
+
+	});
 
 
 

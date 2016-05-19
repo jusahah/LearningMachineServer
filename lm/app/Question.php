@@ -88,4 +88,9 @@ class Question extends Model
     	return $this->answers->sortBy('created_at');
     }
 
+    public static function doesUserOwnThisQuestionId($id, $user) {
+        $question = self::findOrFail($id);
+        return $question->item->user == $user;
+    }
+
 }
