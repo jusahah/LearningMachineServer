@@ -28,6 +28,7 @@ class CheckApiKey
         try {
             // Key is saved in crypted form
             $user = User::where('apikey', $key)->firstOrFail();
+
         }catch(ModelNotFoundException $e) {
             return \Response::json([
                 'result' => 'Invalid API key'
@@ -35,6 +36,8 @@ class CheckApiKey
         }
 
         $request->attributes->add(['user' => $user]);
-        return $next($request);
+        $authResponse = \Auth::onceBasic();
+        dd($authResponse);
+        return \Auth::onceBasic() ?: $next($request);
     }
 }

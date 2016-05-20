@@ -13,6 +13,7 @@ class NewTextItemRequest extends Request
      */
     public function authorize()
     {
+
         return true;
     }
 

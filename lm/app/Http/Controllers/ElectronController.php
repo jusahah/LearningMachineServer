@@ -40,8 +40,9 @@ class ElectronController extends Controller
     	], 200);
     }
 
-    public function newTextItem(NewTextItemRequest $request) {
-
+    public function createNewTextItem(NewTextItemRequest $request) {
+    	echo "jeeee";
+    	return;
     	$fields = $request->all();
     	$fields['user_id'] = $request->get('user')->id;
 
