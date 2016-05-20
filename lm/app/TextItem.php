@@ -11,6 +11,8 @@ class TextItem extends Model
 	protected static $itenable_typename = 'App\TextItem';
 
 	public $timestamps = false;
+    protected $guarded = [];
+    
 	public static function createItem($attributes) {
     	// Perhaps validate here first?
 

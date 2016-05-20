@@ -26,8 +26,6 @@ class PlayController extends Controller
 
         $input = $request->all();
 
-
-
         // Form request checked only data validation, we need to ensure user owns this question
         $questionId = $input['question'];
         if (!Question::doesUserOwnThisQuestionId($questionId, \Auth::user())) {

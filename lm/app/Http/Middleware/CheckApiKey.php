@@ -18,7 +18,7 @@ class CheckApiKey
      */
     public function handle($request, Closure $next)
     {
-        $key = $this->route('apiKey');
+        $key = $request->route('apiKey');
         if (!$key || $key == '') {
             return \Response::json([
                 'result' => 'API key missing'
@@ -26,6 +26,7 @@ class CheckApiKey
         }
 
         try {
+            // Key is saved in crypted form
             $user = User::where('apikey', $key)->firstOrFail();
         }catch(ModelNotFoundException $e) {
             return \Response::json([

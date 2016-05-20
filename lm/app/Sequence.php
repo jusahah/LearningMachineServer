@@ -70,6 +70,8 @@ class Sequence extends Model
     	});
     	*/
 
+        
+
 
     	$sequenceables = $this->flattenPossibleNestedSequences($sequenceables);
 
@@ -95,8 +97,9 @@ class Sequence extends Model
     }
 
     protected function flattenPossibleNestedSequences($sequenceables) {
+
     	return $sequenceables->map(function($sequenceable, $key) {
-    		
+
     		if ($sequenceable->isSequence()) {
     			
     			return $sequenceable->sequenceable->sequenceables->sortBy(function($s) {

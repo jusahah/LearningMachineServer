@@ -77,9 +77,10 @@ class SequenceSeeder extends Seeder
     	]));	
 
     	$seq2->replaceOrderedSequenceables(collect([
+            App\Sequenceable::find(17),            
     		$seq->sequenceable,
     		$seq->sequenceable,
-    		App\Sequenceable::find(17)
+
     	]));
     
     	$seq3->replaceOrderedSequenceables(collect([

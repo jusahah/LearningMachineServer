@@ -52,5 +52,7 @@ class Kernel extends HttpKernel
         'hasViewRights' => \App\Http\Middleware\HasViewRights::class, 
         'ownerOfSequence' => \App\Http\Middleware\OwnerOfSequence::class,
         'ownerOfQuestion' => \App\Http\Middleware\OwnerOfQuestion::class,
+        'checkAjax' => \App\Http\Middleware\CheckAjax::class,
+        'checkApiKey' => \App\Http\Middleware\CheckApiKey::class,
     ];
 }

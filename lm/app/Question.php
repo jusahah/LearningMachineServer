@@ -18,10 +18,12 @@ class Question extends Model
     // Override
     public static function create(array $attributes = []) {
 
+
         DB::transaction(function() use ($attributes) {
             $question = parent::create($attributes);
 
             // We need to create matching sequenceable for the question
+
             Sequenceable::create([
                 'user_id' => $question->item->user_id,
                 'sequenceable_id' => $question->id,

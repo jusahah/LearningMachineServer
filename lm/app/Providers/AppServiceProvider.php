@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
             }
 
         });
-
+        /*
         // Create sequenceable model for this item
         Item::created(function($item) {
             Sequenceable::create([
@@ -65,6 +65,7 @@ class AppServiceProvider extends ServiceProvider
                 'sequenceable_type' => Item::class
             ]);
         });
+        */
 
         Item::deleted(function($item) {
             // Delete sequenceables when its item type

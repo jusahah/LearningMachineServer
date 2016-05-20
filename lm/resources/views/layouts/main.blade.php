@@ -184,7 +184,10 @@
 								<a href="{{ route('question.index') }}">List All</a>
 							</li>
 						</ul>
-					</li>					
+					</li>	
+					<li>
+						<a href="#" data-toggle="modal" data-target="#apiKeyModal"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">API Key</span> <span class="badge pull-right inbox-badge margin-right-13">14</span></a>
+					</li>									
 					<li>
 						<a href="{{ url('/logout') }}"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">Logout</span> <span class="badge pull-right inbox-badge margin-right-13">14</span></a>
 					</li>
@@ -299,7 +302,40 @@
 		  </div>
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="apiKeyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">API Keyn hallinta</h4>
+		      </div>
+		      <div class="modal-body">
 
+		      	<div id="createapiview">
+
+				<p>Luo uusi API Key klikkaamalla "Luo uusi avain" -painiketta. Huomioithan, että
+				mahdollinen nykyinen API Key poistuu käytöstä välittömästi.</p>
+				<br>
+
+				</div>
+
+				<div id="createdoneapiview" style="display: none;">
+				<p>Uusi avain luotu! Kopioi avain alta LearningMachine-työpöytäohjelmaasi.</p>
+				<input type="text" class="form-control" id="showkey"></input>
+				<br>
+				</div>
+
+				<footer>
+					<a href="{{route('apikey.create')}}" id="createapikeylink" class="btn btn-danger">
+						Luo uusi avain
+					</a>
+				</footer>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
 		<!-- END PAGE FOOTER -->
 
 		<!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
@@ -427,6 +463,37 @@
 		<script src="{{asset('js/plugin/fullcalendar/jquery.fullcalendar.min.js')}}"></script>
 
 		@yield('js')
+
+
+		<script>
+		$(function() {
+			$('#createapikeylink').on('click', function(e) {
+				e.preventDefault();
+				$.ajax({
+				  method: "GET",
+				  url: "{{route('apikey.create')}}",
+				})
+				  .done(function( msg ) {
+				    var key = msg.apikey;
+				    $('#createapiview').hide();
+				    var showView = $('#createdoneapiview');
+				    showView.find('input').val(key);
+				    showView.show();
+
+				  }).fail(function() {
+				  	alert("API Keyn luonti epäonnistui!");
+				  })
+			});
+
+			$('#apiKeyModal').on('hidden.bs.modal', function() {
+				// Revert to original
+				$('#createdoneapiview').find('input').val('');
+				$('#createdoneapiview').hide();
+				$('#createapiview').show();
+			})
+		});
+
+		</script>
 
 
 

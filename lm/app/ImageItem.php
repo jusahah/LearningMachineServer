@@ -26,7 +26,7 @@ class ImageItem extends Model
     	$attributes['itenable_typename'] = self::$itenable_typename;
     	$attributes['itenable_id'] = $concreteItem->id;  
 
-    	Item::createItem($attributes); // Create super class item
+    	Item::createItem($attributes); // Create wrapper item
 
     }
 

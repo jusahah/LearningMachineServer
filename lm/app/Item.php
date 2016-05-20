@@ -9,6 +9,7 @@ use DB;
 use App\LatestAddition;
 use App\Tag;
 use App\Tagged;
+use App\Sequenceable;
 use Carbon\Carbon;
 
 use App\Modeltraits\PrintDateTimes;
@@ -49,12 +50,17 @@ class Item extends Model
 
     public static function createItem($attributes) {
 
+
     	$tags = collect(explode(',', $attributes['tags']));
 
+        // Crate new tags or get existing
     	$tagModels = $tags->map(function($tag) use ($attributes) {
+            $tag = trim($tag);
+            if ($tag == '') return null;
     		return Tag::createOrGet($tag, $attributes['user_id']);
     	});
 
+        // Create item itself
     	$item = new self();
     	$item->name = $attributes['name'];
     	$item->summary = $attributes['summary'];
@@ -64,11 +70,25 @@ class Item extends Model
     	$item->itenable_id   = $attributes['itenable_id'];
     	$item->save();
 
+        // Create matching sequenceable for the item
+
+        $sid = Sequenceable::create([
+            'user_id' => $item->user_id,
+            'sequenceable_id' => $item->id,
+            'sequenceable_type' => Item::class
+        ]);
+
+
+        // Add relations to those Tags this Item references
+        // Tagged represents pivot model
     	$tagModels->each(function($tagModel) use ($item) {
-    		Tagged::create([
-    			'item_id' => $item->id,
-    			'tag_id'  => $tagModel->id
-    		]);
+            if ($tagModel) {
+                Tagged::create([
+                    'item_id' => $item->id,
+                    'tag_id'  => $tagModel->id
+                ]);                
+            }
+
     	});
 
     }
