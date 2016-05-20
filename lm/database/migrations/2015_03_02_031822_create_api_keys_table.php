@@ -42,7 +42,7 @@ class CreateApiKeysTable extends Migration
             $table->string('ip_address');
             $table->nullableTimestamps();
 
-            $table->foreign('api_key_id')->references('id')->on('api_keys');
+            $table->foreign('api_key_id')->references('id')->on('api_keys')->onDelete('set null');
             $table->index('route');
             $table->index('method');
 

@@ -26,7 +26,7 @@ class ElectronController extends Controller
     	$tags = Tag::where('user_id', $user->id)->get();
 
     	return \Response::json([
-    		'categories' => $categories,
+    		'categories' => Category::parseTree($categories, null),
     		'tags' => $tags
     	], 200);
 
@@ -36,7 +36,7 @@ class ElectronController extends Controller
 
     	// We just whip up new S3 key for file saving
     	return \Response::json([
-    		'uuid' => (string) \Uuid::generate()
+    		's3key' => (string) \Uuid::generate()
     	], 200);
     }
 

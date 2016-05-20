@@ -71,7 +71,7 @@ class Category extends Model
     	return $flattened;
     }
 
-    protected static function parseTree($tree, $root = null) {
+    public static function parseTree($tree, $root = null) {
 
     	// From StackOverflow
 	    $return = array();
