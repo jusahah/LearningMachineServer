@@ -13,6 +13,7 @@ class NewTextItemRequest extends Request
      */
     public function authorize()
     {
+        echo \Auth::id();
 
         return true;
     }
@@ -24,12 +25,13 @@ class NewTextItemRequest extends Request
      */
     public function rules()
     {
+
         return [
-            'name' => 'required|127',
-            'summary' => 'required|9999',
+            'name' => 'required|max:127',
+            'summary' => 'required|max:9999',
             'category_id' => 'required|integer',
             'tags' => 'max:999',
-            'note' => 'required|29999'
+            'note' => 'required|max:29999'
         ];
     }
 }

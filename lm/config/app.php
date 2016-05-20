@@ -156,6 +156,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider::class,
+
     ],
 
     /*
@@ -203,6 +205,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Uuid' => Webpatser\Uuid\Uuid::class,
+        'ApiGuardAuth' => \Chrisbjr\ApiGuard\Facades\ApiGuardAuth::class,
 
     ],
 

@@ -9,6 +9,7 @@ class Tagged extends Model
     // This model is pivot model!
 	public $timestamps = false;
     public $table = 'item_tag';
+    protected $guarded = [];
 
     public function tag() {
     	return $this->belongsTo('App\Tag');

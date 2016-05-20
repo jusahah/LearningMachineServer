@@ -8,6 +8,7 @@ class Tag extends Model
 {
     //
     public $timestamps = false;
+    protected $guarded = [];
     
     public function items() {
     	// Using Tagged model as pivot table

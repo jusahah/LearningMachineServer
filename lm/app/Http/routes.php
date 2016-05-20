@@ -15,12 +15,12 @@
 
 
 
-Route::group(['prefix' => 'electron/{apiKey}', 'middleware' => ['api', 'checkApiKey']], function() {
+Route::group(['prefix' => 'electron', 'middleware' => ['api', 'apiguard']], function() {
 	// Middleware has bound user info to request
 	Route::get('s3key',    ['uses' => 'ElectronController@getS3Key']);
 	Route::get('metadata', ['uses' => 'ElectronController@getMetaData']);
-	Route::post('text', ['uses' => 'ElectronController@createNewTextItem']);
-	Route::post('image', ['uses' => 'ElectronController@newImageItem']);
+	Route::post('newtext', ['uses' => 'ElectronController@createNewTextItem']);
+	Route::post('newimage', ['uses' => 'ElectronController@newImageItem']);
 
 });
 

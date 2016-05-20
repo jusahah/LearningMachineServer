@@ -20,7 +20,7 @@ class ElectronController extends Controller
 
     public function getMetaData(Request $request) {
 
-    	$user = $request->get('user');
+    	$user = \Auth::user();
 
     	$categories = Category::where('user_id', $user->id)->get();
     	$tags = Tag::where('user_id', $user->id)->get();
@@ -41,10 +41,9 @@ class ElectronController extends Controller
     }
 
     public function createNewTextItem(NewTextItemRequest $request) {
-    	echo "jeeee";
-    	return;
+
     	$fields = $request->all();
-    	$fields['user_id'] = $request->get('user')->id;
+    	$fields['user_id'] = \Auth::id();
 
     	TextItem::createItem($fields);
 

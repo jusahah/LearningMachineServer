@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Closure;
 
 use App\User;
+use DB;
 
 class CheckApiKey
 {
@@ -27,7 +28,8 @@ class CheckApiKey
 
         try {
             // Key is saved in crypted form
-            $user = User::where('apikey', $key)->firstOrFail();
+            $keyRow = \DB::table('api_keys')->where('key', $key)->firstOrFail();
+
 
         }catch(ModelNotFoundException $e) {
             return \Response::json([
@@ -37,7 +39,7 @@ class CheckApiKey
 
         $request->attributes->add(['user' => $user]);
         $authResponse = \Auth::onceBasic();
-        dd($authResponse);
+
         return \Auth::onceBasic() ?: $next($request);
     }
 }

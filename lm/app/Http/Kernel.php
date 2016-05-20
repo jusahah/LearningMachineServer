@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'ownerOfQuestion' => \App\Http\Middleware\OwnerOfQuestion::class,
         'checkAjax' => \App\Http\Middleware\CheckAjax::class,
         'checkApiKey' => \App\Http\Middleware\CheckApiKey::class,
+        'apiguard' => \Chrisbjr\ApiGuard\Http\Middleware\ApiGuard::class,
     ];
 }

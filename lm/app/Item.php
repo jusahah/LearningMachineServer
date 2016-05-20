@@ -19,6 +19,8 @@ class Item extends Model
     //
     use PrintDateTimes;
 
+    protected $guarded = [];
+
     public function user() {
         return $this->belongsTo('App\User');
     }
