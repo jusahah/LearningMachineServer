@@ -15,7 +15,13 @@
 
 Route::auth();
 
+Route::group(['prefix' => 'electron/{apiKey}', 'middleware' => 'checkApiKey'], function() {
+	// Middleware has bound user info to request
+	Route::get('s3key',    ['uses' => 'ElectronController@getS3Key']);
+	Route::get('metadata', ['uses' => 'ElectronController@getMetaData']);
+	Route::post('newitem', ['uses' => 'ElectronController@newItem']);
 
+});
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -72,12 +78,10 @@ Route::group(['middleware' => 'auth'], function() {
 	// AJAX routes
 	// Add somekind of middleware checking request is ajax...
 	Route::group(['prefix' => 'json'], function() {
-
 		Route::post('receiveanswerwithresult', [
 			'as' => 'play.receiveanswerwithresult',
 			'uses' => 'PlayController@receiveJSONAnswerWithResult'
 		]);
-
 	});
 
 
@@ -85,7 +89,6 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['prefix' => 'opendata'], function() {
-
 	Route::group(['middleware' => 'checkUserIdForOpenDataRequest', 'prefix' => 'user/{user}'], function() {
 		Route::get('timeline', 'OpenDataController@userTimeline');
 	});
