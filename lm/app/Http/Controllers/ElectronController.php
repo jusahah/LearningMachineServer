@@ -27,7 +27,8 @@ class ElectronController extends Controller
 
     	return \Response::json([
     		'categories' => Category::parseTree($categories, null),
-    		'tags' => $tags
+    		'tags' => $tags,
+            's3BaseUrl' => env('S3_BASE_URL')
     	], 200);
 
     } 
@@ -55,7 +56,7 @@ class ElectronController extends Controller
     public function newImageItem(NewImageItemRequest $request) {
 
     	$fields = $request->all();
-    	$fields['user_id'] = $request->get('user')->id;
+    	$fields['user_id'] = \Auth::id();
 
     	ImageItem::createItem($fields);
 

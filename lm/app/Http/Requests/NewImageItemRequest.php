@@ -28,7 +28,7 @@ class NewImageItemRequest extends Request
             'summary' => 'required|max:999',
             'category_id' => 'required|integer',
             'tags' => 'required|max:999',
-            'imagepath' => 'required|URL',
+            'filekey' => 'required|max:99',
             'thumbnail' => 'required|max:63000'
         ];
     }

@@ -10,6 +10,7 @@ class ImageItem extends Model
 	protected static $itenable_typename = 'App\ImageItem';
 
 	public $timestamps = false;
+    protected $guarded = [];
 	public static function createItem($attributes) {
     	// Perhaps validate here first?
 
@@ -18,7 +19,7 @@ class ImageItem extends Model
     	// to the Items-table
 
     	$concreteItem = self::create([
-    		'imagepath' => $attributes['imagepath'],
+    		'imagepath' => env('S3_BASE_URL') . '/' . $attributes['filekey'],
     		'thumbnail' => $attributes['thumbnail'],
     		'user_id'   => $attributes['user_id']
     	]);

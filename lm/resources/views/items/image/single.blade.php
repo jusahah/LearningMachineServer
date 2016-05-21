@@ -5,7 +5,7 @@
 			<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
 				<div class="product-image"> 
 					<!--<img src="data:image/jpg;base64,{{$concreteItem->thumbnail}}" alt="194x228" class="img-responsive">--> 
-					<img src="https://images4.alphacoders.com/600/600528.png" alt="194x228" class="img-responsive"> 
+					<img src="{{$concreteItem->imagepath}}" alt="194x228" class="img-responsive"> 
 					
 				</div>
 			</div>

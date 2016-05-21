@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Http\Requests;
 use DB;
@@ -34,5 +35,20 @@ class ApiKeyController extends Controller
     	return \Response::json([
     		'apikey' => $apiKey->key
     	], 200);
+    }
+
+    public function doesKeyExist(Request $request, $apiKey) {
+        // JSON route
+
+        if (\DB::table('api_keys')->where('key', $apiKey)->exists()) {
+            $result = 1;
+        } else {
+            $result = 0;
+        }
+
+        return \Response::json([
+            'result' => $result
+        ], 200);
+
     }
 }

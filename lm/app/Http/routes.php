@@ -13,7 +13,7 @@
 
 
 
-
+Route::get('electron/checkkey/{apiKey}', ['uses' => 'ApiKeyController@doesKeyExist']);
 
 Route::group(['prefix' => 'electron', 'middleware' => ['api', 'apiguard']], function() {
 	// Middleware has bound user info to request
